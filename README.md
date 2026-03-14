@@ -6,8 +6,8 @@ First version -> matrix + basic posterior calculation + inconsistency shaping
 ## Methodology 
 - Heuer's Analysis of Competing Hypotheses (ACH)
 
-- Valtorta's "Structuring and analyzing competing hypotheses
-with Bayesian networks for intelligence analysis" & Karveski's probabilistic ACH extension
+- Karvetski's "Structuring and analyzing competing hypotheses
+with Bayesian networks for intelligence analysis" & Valtorta's probabilistic ACH extension
 
  - Bayesian updating via new evidence
  
