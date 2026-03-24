@@ -18,4 +18,4 @@ double uncondprob(vector<Hypotheses>& Hypotheses, vector<Weight>& Weight);
 void posteriorvalue(vector<Hypotheses>& Hypotheses, vector<Weight>& Weight, double probB);
 
 // function 3 - update priors, basically sequential updating for the next evidence
-void updatePriors(vector<Hypotheses)& Hypotheses);
+void updatePriors(vector<Hypotheses>& Hypotheses);

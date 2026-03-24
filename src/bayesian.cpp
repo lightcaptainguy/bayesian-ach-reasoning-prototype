@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../include/bayesian.h"
+#include "../include/types.h"
 #include <vector>
 using namespace std;
 
@@ -15,7 +16,7 @@ double weightTolikelihood(Weight w) {
         default:                     return 0.5;
     }
 }
-double uncondprob(vector <Hypotheses>& Hypotheses, vector<Weight>& Weight) {
+double uncondprob(vector<Hypotheses>& Hypotheses, vector<Weight>& Weight) {
 double sum = 0.0;
 for (int i=0; i < Hypotheses.size(); i++) {
     sum += Hypotheses[i].prior * weightTolikelihood(Weight[i]);  // summation 
