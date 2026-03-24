@@ -16,3 +16,6 @@ double uncondprob(vector<Hypotheses>& Hypotheses, vector<Weight>& Weight);
 //probability of B conditioned that the taken hypotheses occurs regardless
 //Outputs - updates the posterior float and updates the table according to the evidence
 void posteriorvalue(vector<Hypotheses>& Hypotheses, vector<Weight>& Weight, double probB);
+
+// function 3 - update priors, basically sequential updating for the next evidence
+void updatePriors(vector<Hypotheses)& Hypotheses);

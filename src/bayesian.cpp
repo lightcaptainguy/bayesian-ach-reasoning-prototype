@@ -18,7 +18,7 @@ double weightTolikelihood(Weight w) {
 double uncondprob(vector <Hypotheses>& Hypotheses, vector<Weight>& Weight) {
 double sum = 0.0;
 for (int i=0; i < Hypotheses.size(); i++) {
-    sum += Hypotheses[i].prior * weightToLikelihood(Weight[i]);  // summation 
+    sum += Hypotheses[i].prior * weightTolikelihood(Weight[i]);  // summation 
 }
 return sum;
 }
@@ -26,5 +26,10 @@ void posteriorvalue(vector<Hypotheses>& Hypotheses, vector<Weight>& Weight, doub
     for (int i=0; i < Hypotheses.size(); i++) {
         double likelihood = weightTolikelihood(Weight[i]);
         Hypotheses[i].posterior = (likelihood * Hypotheses[i].prior) / probB;
+    }
+}
+void updatePriors(vector<Hypotheses>& Hypotheses) {
+    for (int i=0; i < Hypotheses.size(); i++) {
+        Hypotheses[i].prior = Hypotheses[i].posterior;
     }
 }
