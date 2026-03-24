@@ -52,7 +52,7 @@ Also architected the workflow ( high-level, on paper) and defined what is needed
 ***Date 24th March, 2026*** ->
 - Defined complete type system in `types.h` (Hypothesis struct with name/prior/posterior, Weight enum covering HIGH_SUPPORT through HIGH_REFUTE + NA)  
 - Created full architecture in `bayesian.h` / `bayesian.cpp`:  
-  - `weightTolikelihood()` — maps Weight enum → numeric likelihood (0.1–0.9) via clean switch  
+  - `weightTolikelihood()` — maps Weight enum → numeric likelihood (0.1–0.9)   
   - `uncondprob()` — computes P(B) normalizing constant using Law of Total Probability (∑ P(B|Ai) × P(Ai))  
   - `posteriorvalue()` — performs Bayesian update in-place on all hypotheses given one piece of evidence  
 - Core Bayesian reasoning is now functional for sequential ACH updates (one evidence at a time, posteriors become new priors)  
