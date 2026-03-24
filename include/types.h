@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
 
 enum class Weight {
 
@@ -18,10 +19,12 @@ struct Hypotheses {
     std::string name;
     float prior;
     float posterior;
+    float inconsistency;
 };
 
 struct Evidence {
     std::string description;
+    std::vector<Weight> Weight;
     float credibility;
 
 };

@@ -6,21 +6,24 @@ using namespace std;
 int main() {
     //harcdoed scenario 
 vector<Hypotheses> Hypotheses = {
-    {"H1", 0.5, 0.0},
-    {"H2", 0.3, 0.0},
-    {"H3", 0.2, 0.0}
+    {"H1", 0.5, 0.0, 0.0},
+    {"H2", 0.3, 0.0, 0.0},
+    {"H3", 0.2, 0.0, 0.0}
 };
-vector<vector<Weight>> allevidence = {
-{Weight::HIGH_SUPPORT, Weight::MEDIUM_SUPPORT, Weight::LOW_SUPPORT},
-{Weight::HIGH_REFUTE, Weight::MEDIUM_REFUTE, Weight::LOW_REFUTE}
+vector<Evidence> allevidence = {
+{"E1", {Weight::HIGH_SUPPORT, Weight::MEDIUM_REFUTE}, 0.95f},
+{"E2", {Weight::MEDIUM_REFUTE, Weight::HIGH_SUPPORT}, 0.30f}
 };
-for (int e=0; e < allevidence.size(); e++) {
-    double probB = uncondprob(Hypotheses, allevidence[e]) ;
+for (const auto& ev : allevidence) {
+    double probB = uncondprob(Hypotheses, ev.Weight) ;
     if (probB == 0) continue;
-    posteriorvalue(Hypotheses, allevidence[e], probB);
+    posteriorvalue(Hypotheses, ev.Weight, probB);
     updatePriors(Hypotheses);
 }
-for (int i=0; i<Hypotheses.size(); i++) {
-    cout << "H" << i << ":" << Hypotheses[i].posterior << endl;
+calculateInconsistency(Hypotheses, allevidence);
+cout << "Reasoning Output\n";
+for (const auto& h : Hypotheses) {
+    printf("ID: %-20s | Probability: %6.2f%% | Friction: %4.2f\n",
+    h.name.c_str(), h.posterior*100, h.inconsistency);
 }
 }

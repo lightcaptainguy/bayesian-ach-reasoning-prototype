@@ -7,15 +7,16 @@ using namespace::std;
 // ( probability that B happens whenever hypotheses happens regardless)
 //outputs -  P(B) = Σ P(B|Ai) × P(Ai)
 double weightTolikelihood(Weight w); // helper
-double uncondprob(vector<Hypotheses>& Hypotheses, vector<Weight>& Weight);
-
+double weightToinconsistency(Weight w);
+double uncondprob(vector<Hypotheses>& Hypotheses, const vector<Weight>& Weight);
+void calculateInconsistency(vector<Hypotheses>& Hypotheses, const vector<Evidence>& Evidence_list);
 
 //function 2 - calculation of posterior gices value to hypotheses struct
 //update all hypothesis posteriors given one piece of evidence
 // Takes in - P(B) from function 1, Prior of hypotheses ( only one this time)
 //probability of B conditioned that the taken hypotheses occurs regardless
 //Outputs - updates the posterior float and updates the table according to the evidence
-void posteriorvalue(vector<Hypotheses>& Hypotheses, vector<Weight>& Weight, double probB);
+void posteriorvalue(vector<Hypotheses>& Hypotheses, const vector<Weight>& Weight, double probB);
 
 // function 3 - update priors, basically sequential updating for the next evidence
 void updatePriors(vector<Hypotheses>& Hypotheses);
