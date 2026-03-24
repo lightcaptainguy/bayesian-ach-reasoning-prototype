@@ -24,4 +24,4 @@ struct Evidence {
     std::string description;
     float credibility;
 
-}
+};
