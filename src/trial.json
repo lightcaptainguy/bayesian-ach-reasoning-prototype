@@ -1,0 +1,11 @@
+{
+"Hypotheses":
+
+   [{"name":"H1", "prior":0.5, "posterior":0.0,"inconsistency": 0.0 },
+   {"name":"H2", "prior":0.3, "posterior":0.0, "inconsistency":0.0},
+   {"name":"H3", "prior":0.2, "posterior":0.0, "inconsistency":0.0}],
+
+"Evidence":
+   [{"description":"E1", "Weight":["HIGH_SUPPORT", "MEDIUM_REFUTE"], "credibility":0.95},
+   {"description":"E2", "Weight":["MEDIUM_REFUTE", "HIGH_SUPPORT"], "credibility":0.30}]
+}

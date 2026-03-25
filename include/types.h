@@ -17,14 +17,14 @@ enum class Weight {
 
 struct Hypotheses {
     std::string name;
-    float prior;
-    float posterior;
-    float inconsistency;
+    float prior = 0.0;
+    float posterior = 0.0;
+    float inconsistency = 0.0;
 };
 
 struct Evidence {
     std::string description;
     std::vector<Weight> Weight;
-    float credibility;
+    float credibility = 0.0;
 
 };

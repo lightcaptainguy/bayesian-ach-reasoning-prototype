@@ -28,18 +28,20 @@ double weightToinconsistency(Weight w) {
         default:                     return 0.5;
     }
 }
-double uncondprob(vector<Hypotheses>& Hypotheses, const vector<Weight>& Weight) {
+double uncondprob(vector<Hypotheses>& Hypotheses, const vector<Weight>& weights) {
 double sum = 0.0;
 for (int i=0; i < Hypotheses.size(); i++) {
-    sum += Hypotheses[i].prior * weightTolikelihood(Weight[i]);  // summation 
+    Weight w = (i < weights.size()) ? weights[i] : Weight::NA;
+    sum += Hypotheses[i].prior * weightTolikelihood(w);  // summation 
 }
 return sum;
 }
-void posteriorvalue(vector<Hypotheses>& Hypotheses, const vector<Weight>& Weight, double probB) {
+void posteriorvalue(vector<Hypotheses>& Hypotheses, const vector<Weight>& weights, double probB) {
     for (int i=0; i < Hypotheses.size(); i++) {
-        double likelihood = weightTolikelihood(Weight[i]);
+        Weight w = (i < weights.size()) ? weights[i] : Weight::NA;
+        double likelihood = weightTolikelihood(w);
         Hypotheses[i].posterior = (likelihood * Hypotheses[i].prior) / probB;
-        Hypotheses[i].inconsistency = weightToinconsistency(Weight[i]);
+        Hypotheses[i].inconsistency = weightToinconsistency(w);
     }
 }
 void updatePriors(vector<Hypotheses>& Hypotheses) {
@@ -50,7 +52,8 @@ void updatePriors(vector<Hypotheses>& Hypotheses) {
 void calculateInconsistency(vector<Hypotheses>& Hypotheses, const vector<Evidence>& Evidence_list) {
     for (const auto& ev : Evidence_list) {
         for (size_t i=0; i < Hypotheses.size(); i++) {
-            double base_penalty = weightToinconsistency(ev.Weight[i]);
+            Weight w = (i < ev.Weight.size()) ? ev.Weight[i] : Weight::NA;
+            double base_penalty = weightToinconsistency(w);
             Hypotheses[i].inconsistency += (base_penalty * ev.credibility);
         }
     }
