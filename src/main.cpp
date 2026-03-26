@@ -19,24 +19,20 @@ map<string, Weight> weightMap = {
     {"MEDIUM_REFUTE", Weight::MEDIUM_REFUTE},
     {"HIGH_REFUTE", Weight::HIGH_REFUTE}
 };
+
 int main() {
     httplib::Client cli("https://api.gdeltproject.org");
     cli.enable_server_certificate_verification(false);
     cli.set_connection_timeout(30);
     cli.set_read_timeout(30);
     auto res = cli.Get("/api/v2/doc/doc?query=Taiwan+China+military+sourcelang:english+sourcecountry:US&mode=artlist&maxrecords=10&format=json&timespan=7d");
-  
+  if (!res || res->body.empty()) {
+    cout << "GDELT request failed\n";
+    return 1;
+}
 json gdeltdata = json::parse(res->body);
-for (const auto& item : gdeltdata["articles"]) {
-        cout << item["title"].get<string>() << "\n";
-        cout << item["url"].get<string>() << "\n\n";
-    }
-
-
-
-   std::ifstream f("trial.json");
+std::ifstream f("trial.json");
    json data = json::parse(f);
-
 vector<Hypotheses> allHypotheses;
   for (const auto& item : data["Hypotheses"]) {
     Hypotheses hyp;
@@ -48,16 +44,21 @@ vector<Hypotheses> allHypotheses;
   }
 
 vector<Evidence> allevidence;
-for (const auto& item : data["Evidence"]) {
-     Evidence ev;
-    ev.description = item["description"].get<string>();
-    for (const auto& w : item["Weight"]) {
-        ev.Weight.push_back(weightMap[w.get<string>()]);
-    }
-    ev.credibility = item["credibility"].get<double>();
-    allevidence.push_back(ev);
-}
+for (const auto& item : gdeltdata["articles"]) {
+        cout << item["title"].get<string>() << "\n";
+        cout << item["url"].get<string>() << "\n";
+        cout << "Enter evidence weight according to analysis" << "\n\n";
+        Evidence ev;
+        ev.description = item ["title"].get<string>();
+        for ( const auto& h : allHypotheses) {
+            cout << "Weight of evidence for " << h.name << ":" << endl;
+            string w;
+            cin >> w;
+            ev.Weight.push_back(weightMap[w]);
+        }
+     allevidence.push_back(ev);
 
+    }
 
 for (const auto& ev : allevidence) {
     double probB = uncondprob(allHypotheses, ev.Weight) ;
