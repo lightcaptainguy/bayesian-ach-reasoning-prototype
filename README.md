@@ -1,15 +1,61 @@
 # bayesian-ach-reasoning-prototype
-Prototype Implementation of Heuer's ACH ( Analysis of Competing Hypotheses ) + simple Bayesian updating
 
-First version -> matrix + basic posterior calculation + inconsistency shaping 
+A real-time intelligence analysis prototype built in C++ that combines 
+Heuer's Analysis of Competing Hypotheses (ACH) with sequential Bayesian 
+updating, from live news data from the GDELT Project DOC 2.0 API.
 
-## Methodology 
-- Heuer's Analysis of Competing Hypotheses (ACH)
+## What it does
 
-- Karvetski's "Structuring and analyzing competing hypotheses
-with Bayesian networks for intelligence analysis" & Valtorta's probabilistic ACH extension
+The system models an analyst's reasoning process:
 
- - Bayesian updating via new evidence
+1. Load hypotheses from a JSON scenario file with initial priors
+2. Fetch recent news articles from GDELT (live, real-time)
+3. Analyst reviews each article and assigns evidence weights 
+   (HIGH_SUPPORT → HIGH_REFUTE) and source credibility (0.0–1.0)
+4. Engine runs sequential Bayesian updates across all evidence
+5. Outputs a structured ACH matrix, posterior probabilities, 
+   friction scores, and sensitivity analysis
+
+## Methodology
+
+- **ACH** — Heuer's *Psychology of Intelligence Analysis* (1999)
+- **Probabilistic extension** — Karvetski & Valtorta's Bayesian network 
+  extension of ACH for intelligence analysis
+- **Weight system** — Extended from Heuer's binary C/I to 7-level scale:
+  HIGH_SUPPORT / MEDIUM_SUPPORT / LOW_SUPPORT / NA / 
+  LOW_REFUTE / MEDIUM_REFUTE / HIGH_REFUTE
+  Treated as Bayesian likelihoods (0.1–0.9), preserving more 
+  information than binary while staying analytically grounded
+
+## Architecture
+src/
+├── main.cpp — pipeline: GDELT fetch → analyst input → reasoning loop
+├── bayesian.cpp — core math: uncondprob, posteriorvalue,
+calculateInconsistency, sensitivity analysis
+include/
+├── types.h — Hypotheses struct, Evidence struct, Weight enum
+├── bayesian.h — function declarations
+├── json.hpp — nlohmann/json (header-only)
+├── httplib.h — cpp-httplib (header-only)
+
+
+## Output
+
+- ACH matrix (evidence × hypotheses with weight labels)
+- Bayesian updates table (prior → posterior, friction, interpretation)
+- Sensitivity analysis (posterior delta per evidence item per hypothesis)
+
+## Build
+
+```bash
+g++ src/main.cpp src/bayesian.cpp -o src/main -lws2_32 -lssl -lcrypto -lcrypt32
+```
+Requires OpenSSL (mingw-w64-x86_64-openssl via pacman on MSYS2).
+
+## Status
+Working prototype, active development.
+
+## ***(old devlogs) Timeline****
  
 ***Date 12th March, 2026*** -> still in research phase, reading Heuer's "Psychology of Intelligence Analysis" and the two research papers by Valtorta and Karveski on extension of ACH using probabilistic methods for complex analysis before implementation
 
