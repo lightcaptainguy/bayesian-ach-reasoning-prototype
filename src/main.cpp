@@ -33,7 +33,10 @@ int main() {
 json gdeltdata = json::parse(res->body);
 std::ifstream f("trial.json");
    json data = json::parse(f);
-vector<Hypotheses> allHypotheses;
+
+   vector<Hypotheses> allHypotheses;
+   
+
   for (const auto& item : data["Hypotheses"]) {
     Hypotheses hyp;
     hyp.name = item["name"].get<string>();
@@ -42,7 +45,7 @@ vector<Hypotheses> allHypotheses;
     hyp.inconsistency = item["inconsistency"].get<double>();
     allHypotheses.push_back(hyp);
   }
-
+vector<Hypotheses> originalHypotheses = allHypotheses;
 vector<Evidence> allevidence;
 for (const auto& item : gdeltdata["articles"]) {
         cout << item["title"].get<string>() << "\n";
@@ -54,17 +57,23 @@ for (const auto& item : gdeltdata["articles"]) {
             cout << "Weight of evidence for " << h.name << ":" << endl;
             string w;
             cin >> w;
-            ev.Weight.push_back(weightMap[w]);
+         ev.Weight.push_back(weightMap[w]);
         }
-     allevidence.push_back(ev);
-
+     
+        float c;
+        cout << "Enter evidence crediblity according to source";
+        cin >> c;
+        ev.credibility = c;
+        allevidence.push_back(ev);
     }
 
-for (const auto& ev : allevidence) {
-    double probB = uncondprob(allHypotheses, ev.Weight) ;
+for (auto& ev : allevidence) {
+    vector<Weight> originalWeights = ev.Weight;
+    double probB = uncondprob(allHypotheses, ev.Weight);
     if (probB == 0) continue;
     posteriorvalue(allHypotheses, ev.Weight, probB);
     updatePriors(allHypotheses);
+
 }
 
 for (auto& h : allHypotheses) h.inconsistency = 0.0;
@@ -74,6 +83,42 @@ for (const auto& ev : allevidence) {
     evidenceWeights.push_back(ev.Weight);
 }
 calculateInconsistency(allHypotheses, allevidence);
+vector<Hypotheses> baselinePosteriors = allHypotheses;
+vector<vector<double>> sensitivityDeltas;
+for (auto& ev : allevidence) {
+    vector<Weight> savedWeights = ev.Weight;
+    fill (ev.Weight.begin(), ev.Weight.end(), Weight::NA);
+    allHypotheses = originalHypotheses;
+   for (auto& e : allevidence) {
+    double probB = uncondprob(allHypotheses, e.Weight);
+    if (probB == 0) continue;
+    posteriorvalue(allHypotheses, e.Weight, probB);
+    updatePriors(allHypotheses);
+}
+    vector<Hypotheses> sensitivityPosteriors = allHypotheses;
+    vector<double> evDeltas;
+    for (size_t i=0; i<allHypotheses.size(); i++) {
+        double delta = baselinePosteriors[i].posterior - sensitivityPosteriors[i].posterior;
+        evDeltas.push_back(delta);
+    }
+    sensitivityDeltas.push_back(evDeltas);
+    ev.Weight = savedWeights;
+}
+
+cout << "\nSENSITIVITY ANALYSIS\n";
+cout << string(80, '-') << "\n";
+cout << "Evidence\t\t\t\t| ";
+for (const auto& h : allHypotheses) cout << h.name << "\t| ";
+cout << "\n" << string(80, '-') << "\n";
+for (size_t e = 0; e < allevidence.size(); e++) {
+    cout << allevidence[e].description << "\t| ";
+    for (size_t i = 0; i < sensitivityDeltas[e].size(); i++) {
+        printf("%.4f\t| ", sensitivityDeltas[e][i]);
+    }
+    cout << "\n";
+}
+cout << string(80, '-') << "\n";
+
 cout << "Reasoning Output\n";
 
 for (const auto& h : allHypotheses) {
@@ -86,6 +131,6 @@ int filled = (int)(h.posterior * 15);
     }
     printf("\n\n");
 }
-printdetailedreport(allHypotheses, allevidence, evidenceWeights);
+printdetailedreport(allHypotheses, allevidence, evidenceWeights, originalHypotheses);
 }
 

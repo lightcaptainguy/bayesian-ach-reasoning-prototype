@@ -55,11 +55,11 @@ void calculateInconsistency(vector<Hypotheses>& Hypotheses, const vector<Evidenc
         for (size_t i=0; i < Hypotheses.size(); i++) {
             Weight w = (i < ev.Weight.size()) ? ev.Weight[i] : Weight::NA;
             double base_penalty = weightToinconsistency(w);
-            Hypotheses[i].inconsistency += (base_penalty * ev.credibility);
+            Hypotheses[i].inconsistency += (base_penalty * ev.credibility)/Evidence_list.size();
         }
     }
 }
-void printdetailedreport(vector<Hypotheses>& hypotheses, const vector<Evidence>& evidencenames, const vector<vector<Weight>>& evidenceweights) {
+void printdetailedreport(vector<Hypotheses>& hypotheses, const vector<Evidence>& evidencenames, const vector<vector<Weight>>& evidenceweights, const vector<Hypotheses>& originalHypotheses)  {
     cout << "\n Reasoning Output \n";
     cout << "Scenario: test\n\n";
    std::cout << "ACH MATRIX (Evidence vs Hypotheses)\n";
@@ -108,7 +108,7 @@ void printdetailedreport(vector<Hypotheses>& hypotheses, const vector<Evidence>&
         else                   interp = "Strongly inconsistent";
 
         std::cout << "H" << (i+1) << "\t| " << hypotheses[i].name 
-                  << "\t| " << hypotheses[i].prior*100 << "%"
+                  << "\t| " << originalHypotheses[i].prior*100 << "%"
                   << "\t| " << hypotheses[i].posterior*100 << "%"
                   << "\t| " << incons
                   << "\t| " << interp << "\n";

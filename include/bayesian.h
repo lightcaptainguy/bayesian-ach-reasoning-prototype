@@ -20,4 +20,4 @@ void posteriorvalue(vector<Hypotheses>& Hypotheses, const vector<Weight>& Weight
 
 // function 3 - update priors, basically sequential updating for the next evidence
 void updatePriors(vector<Hypotheses>& Hypotheses);
-void printdetailedreport(vector<Hypotheses>& hypotheses, const vector<Evidence>& evidencenames, const vector<vector<Weight>>& evidenceweights);
+void printdetailedreport(vector<Hypotheses>& hypotheses, const vector<Evidence>& evidencenames, const vector<vector<Weight>>& evidenceweights, const vector<Hypotheses>& originalHypotheses);
