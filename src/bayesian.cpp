@@ -2,6 +2,7 @@
 #include "../include/bayesian.h"
 #include "../include/types.h"
 #include <vector>
+#include <iomanip>
 using namespace std;
 
 double weightTolikelihood(Weight w) {
@@ -57,4 +58,60 @@ void calculateInconsistency(vector<Hypotheses>& Hypotheses, const vector<Evidenc
             Hypotheses[i].inconsistency += (base_penalty * ev.credibility);
         }
     }
+}
+void printdetailedreport(vector<Hypotheses>& hypotheses, const vector<Evidence>& evidencenames, const vector<vector<Weight>>& evidenceweights) {
+    cout << "\n Reasoning Output \n";
+    cout << "Scenario: test\n\n";
+   std::cout << "ACH MATRIX (Evidence vs Hypotheses)\n";
+    std::cout << std::string(90, '-') << "\n";
+    std::cout << "Evidence / Hypothesis\t";
+    for (const auto& h : hypotheses) {
+        std::cout << "| " << h.name << " ";
+    }
+    std::cout << "\n" << std::string(90, '-') << "\n";
+    for (size_t e = 0; e < evidencenames.size(); ++e) {
+        std::cout << evidencenames[e].description << "\t\t";
+        
+        for (size_t h = 0; h < hypotheses.size(); ++h) {
+
+            Weight w = ( h < evidenceweights[e].size() ) ? evidenceweights[e][h] : Weight::NA;
+            std::string label;
+            switch(w) {
+                case Weight::HIGH_SUPPORT:    label = "HS"; break;
+                case Weight::MEDIUM_SUPPORT:  label = "MS"; break;
+                case Weight::LOW_SUPPORT:     label = "LS"; break;
+                case Weight::HIGH_REFUTE:     label = "HR"; break;
+                case Weight::MEDIUM_REFUTE:   label = "MR"; break;
+                case Weight::LOW_REFUTE:      label = "LR"; break;
+                case Weight::NA:              label = "NA"; break;
+                default:                      label = "NA";
+            }
+            std::cout << "| " << label << "  ";
+        }
+        std::cout << "\n";
+    }
+
+    std::cout << std::string(90, '-') << "\n\n";
+
+    std::cout << "BAYESIAN UPDATES\n";
+    std::cout << std::string(80, '-') << "\n";
+    std::cout << "ID\t| Hypothesis\t\t| Prior\t| Posterior\t| Friction\t| Interpretation\n";
+    std::cout << std::string(80, '-') << "\n";
+
+    for (size_t i = 0; i < hypotheses.size(); ++i) {
+        double incons = hypotheses[i].inconsistency;  
+        std::string interp;
+        if (incons < 0.3)      interp = "Strongly consistent";
+        else if (incons < 0.5) interp = "Mildly consistent";
+        else if (incons < 0.7) interp = "Neutral";
+        else if (incons < 0.9) interp = "Mildly inconsistent";
+        else                   interp = "Strongly inconsistent";
+
+        std::cout << "H" << (i+1) << "\t| " << hypotheses[i].name 
+                  << "\t| " << hypotheses[i].prior*100 << "%"
+                  << "\t| " << hypotheses[i].posterior*100 << "%"
+                  << "\t| " << incons
+                  << "\t| " << interp << "\n";
+    }
+    std::cout << std::string(80, '-') << "\n";
 }
