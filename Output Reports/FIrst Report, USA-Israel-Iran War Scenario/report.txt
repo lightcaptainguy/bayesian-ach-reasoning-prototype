@@ -1,0 +1,410 @@
+
+SENSITIVITY ANALYSIS
+--------------------------------------------------------------------------------
+Evidence                                               | H1: Negotiated Ceasefire - | H2: Ground Invasion Escalation - US escalates to ground operations, seizing Kharg Island, Qeshm, or nuclear material sites| H3: Iran Capitulates and accepts USA's terms — nuclear program dismantlement, missile limits, regional proxy withdrawal| H4: Protracted stalemate| 
+------------------------------------------------------------------------------------------
+Trump Iran peace plan puts Obama cowardly deal to sham | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Pentagon Readies  Final Blow  Against Iran , Including | -0.0870 | 0.0084  | -0.0109 | 0.0894  
+Trump extends deadline for striking Iranian energy pla | -0.0185 | -0.0689 | 0.0677  | 0.0197  
+  He Cooked : Trump Creates Wild Fantasy to Make It Lo | -0.0823 | -0.0344 | 0.2455  | -0.1288 
+Gulf states tell US ending the war is not enough , Ira | -0.0233 | 0.0248  | 0.2420  | -0.2435 
+Gulf states tell US ending the war is not enough , Ira | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Gulf States Demand Iran Capabilities Be Curb After War | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Israel Army Confirms Struck Two Nuclear Sites in Iran  | 0.0054  | -0.0230 | 0.1039  | -0.0863 
+Israeli army confirms struck 2 nuclear sites in Iran   | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+  Strait of Trump : US president says Iran must open k | -0.0008 | -0.0571 | 0.2721  | -0.2142 
+  Iran will exact HEAVY price for Israeli crimes : Ara | -0.0080 | 0.0414  | -0.1550 | 0.1217  
+Iran says Israeli attacks on plants  contradict U . S  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+War on Iran during nuclear negotiations undermines the | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Witkoff : We expect talks with Iran this week          | 0.0174  | -0.0599 | -0.0336 | 0.0762  
+Iran says nuclear facilities hit by strikes after Isra | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Gulf War : Will Trump Strike A Deal With Iran ?        | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Trump energy policy a  giant chess game : Tiana Lowe D | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Logic , Logistics , And At Least Another 10 Days ...   | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran likely to respond on Friday to Trump 15 - point p | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Trump reveals Iran  present : 10 oil tankers through t | 0.0233  | -0.0241 | -0.0566 | 0.0574  
+At least 10 US service members hurt during Iranian mis | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran Warns Israel Over Strikes on Nuclear , Steel Faci | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Which key Iranian figures have been killed in US - Isr | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Factbox - Which key Iranian figures have been killed i | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Which key Iranian figures have been assassinated in US | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+At UN , Iran calls Minab school strike which killed 17 | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+  Hotel becomes American the moment US soldiers check  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iranian missile and drone strike on Saudi base leaves  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+At least 10 US troops injured in Iranian missile attac | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran soccer team honours victims of deadly airstrike o | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Israel Is Dropping 2 , 000 - Pound Bombs on Densely -  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Tehran accuses US of  calculated  assault on school    | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+UN seeking answers from US about deadly strike on Iran | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+What is Trump approval rating ? It is notching lower a | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+US fires over 850 Tomahawk missiles in Iran war as sto | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran FM says Israel strikes on nuclear sites contradic | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Tehran strikes military base in Saudi Arabia after Isr | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Twelve US troops wounded in Iran strike on base in Sau | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+No damage detected after Bushehr Nuclear Power Plant i | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iranian missile attack leaves  at least 10  US troops  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran IRGC issues warning to people of West Asia ; says | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Chair of the NATO Military Committee :  European natio | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+  At least 10  US troops injured after missile attack  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Pentagon Insider Warns Iranian Sleeper Cells Are  More | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran Bushehr nuclear plant in crosshairs for third tim | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+At least 12 US troops hurt in Iranian strike on Saudi  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Tehran to enable humanitarian aid through Hormuz , 3 I | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Missile strike on Saudi air base injures 10 US troops  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Qassem Basir , Etemad , Fattah - 2 : Where are Iran mo | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Twelve U . S . troops wounded in Iran strike on base i | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Who are the Houthis , Iran allies in Yemen ? | The Jer | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Israel Hits Iran Two Largest Steel Factories As Tehran | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+China welcomes Pakistan mediation in U . S .- Iran tal | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Trump delays strikes on Iran energy sites as Strait of | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Israel strikes deep in Tehran as Mideast war enters 2n | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Pakistan Declining Strategic Role in Gulf Amid Iran Sn | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Trump eyes 10 , 000 more troops as Israeli army is nea | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Pakistan playing  pivotal role  in ending US - Iran wa | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+نشر زوارق انتحارية و10 آلاف جن� | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Irans response to US peace proposal expected Friday :  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran Latest Response Shows Theyre Miscalculating Again | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+PAK tries playing arbitrator between US - Iran , conti | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Pakistan says holding  detailed discussion with leader | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Why Pakistan Has Emerged as a Key Mediator Between US  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+G7 Meeting Ends with Joint Statement Despite Reported  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Kerosene hiked to Rs433 . 40 per litre , petrol , dies | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran response to US peace proposal expected Friday     | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Pakistan steps in as mediator in Iran U . S . tensions | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Why Pakistan has emerged as a mediator between US and  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Shocking Iran X Post Targets Trump Over Epstein Scanda | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Pakistan remains central to regional de - escalation , | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Trump holding back on strikes on Iran energy infra bec | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Middle East Power Struggle Faces Defining Moment       | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran Warns Israel of Heavy Price After Airstrikes - Pa | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+US envoy hopeful on Iran talks as strikes target nucle | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Even Fox personalities are struggling to defend the Tr | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Shaheen , Schumer , Reed , Warner , Warren Statement o | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Aakar Patel : Why I Want Iran To Win - Rediff . com In | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Trump Treasury Drops Sanctions on Putin Henchmen With  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Strait of Hormuz disruptions : India crude buys from R | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Inside Iran Payment Network and Global Sanctions Strat | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+China denies reports SMIC sent chipmaking tools to Ira | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Why Nigeria fell short of Iran under sanctions ,  By  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Strait of Hormuz blockage : Key facts , figures , and  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Alireza Tangsiri … The Supreme Leader Man in the Shi | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iranian Oil Revenue Climbs to $139 Million Daily Amid  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+India Reopens Energy Talks With Russia Amid Global Pri | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Trump Iran war pushes India to rekindle old friendship | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Commentary : The Iran war is now all about the future  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran starts to formalize its chokehold on the Strait o | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran puts toll booth for oil tankers in Strait of Horm | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+SMIC sent chipmaking tools to Iran military , Trump ad | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Epic Fail : Israel , CIA , Gabbard Feeding Trump Fake  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+AI Research Is Getting Harder to Separate From Geopoli | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Backgrounder : Canada imposes additional sanctions aga | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+How Iran is seeking to cash in on controlling the Stra | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+  Couldnt even lock down his own inbox : Kash Patel ha | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Chinese vessels cautious about Iran safe shipping corr | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran Fantasy of Strength : When Bazaar Tactics Collide | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran starts to formalize chokehold on Hormuz Strait wi | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Top Putin ally predicts Europe and Britain will  beg   | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Dow Jones Top Markets Headlines at 7 PM ET : Market Di | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran Dismisses U . S . Ceasefire Plan , Lists Counter  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Israel army reports war first missile attack from Yeme | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+US / Israel - Iran War ( Day 28 ): Israel military cou | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran - US war : Pakistan , Saudi , Turkish , Egyptian  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Comparing Iran , Iraq wars is  31 flavors of delusion  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Tesla , NVIDIA , Microsoft to Apple : Magnificent 7 st | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Stephens : The war is going better than you think      | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran is getting under Trump skin by using his  Art of  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Intel Leak Blows Up Donald Trump Big War Boasts        | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran war : Israel hits Iranian heavy water nuclear rea | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Israel hits Tehran with wave of strikes and warns atta | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+A war of regression : how Trump bombed the US into a w | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+The United States is Formally at War with Iran , At Le | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Israel warns attacks on Iran  will escalate and expand | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+  This is insanity : Senator slams Trump as US burns $ | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+  Attacks in Iran will escalate , Israel says at it st | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+What we know about Iran military capabilities by track | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+As Iran War Spirals , Trump Cant Fool Markets Forever  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+German chancellor criticizes US , Israeli military str | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Iran latest : CENTCOM commander says 303 US troops hav | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+Israel launches a new wave of strikes on Iran with no  | 0.0000  | 0.0000  | 0.0000  | 0.0000  
+--------------------------------------------------------------------------------
+Reasoning Output
+
+========================================
+SCENARIO: USA-Iran War 2026 - Near term outcome assessment
+========================================
+
+ID: H1: Negotiated Ceasefire -  | Probability: 3.6476% | Friction: 0.50
+...............
+
+ID: H2: Ground Invasion Escalation - US escalates to ground operations, seizing Kharg Island, Qeshm, or nuclear material sites | Probability: 5.4714% | Friction: 0.50
+...............
+
+ID: H3: Iran Capitulates and accepts USA's terms — nuclear program dismantlement, missile limits, regional proxy withdrawal | Probability: 70.363% | Friction: 0.50
+||||||||||.....
+
+ID: H4: Protracted stalemate | Probability: 20.517% | Friction: 0.50
+|||............
+
+
+ Reasoning Output 
+ACH MATRIX (Evidence vs Hypotheses)
+------------------------------------------------------------------------------------------
+Evidence / Hypothesis                                  | H1: Negotiated Ceasefire -  | H2: Ground Invasion Escalation - US escalates to ground operations, seizing Kharg Island, Qeshm, or nuclear material sites | H3: Iran Capitulates and accepts USA's terms — nuclear program dismantlement, missile limits, regional proxy withdrawal | H4: Protracted stalemate 
+------------------------------------------------------------------------------------------
+Trump Iran peace plan puts Obama cowardly deal to shame                    | NA   | NA   | NA   | NA   
+
+Pentagon Readies  Final Blow  Against Iran , Including an Unknown Number o | MR   | MS   | NA   | HS   
+
+Trump extends deadline for striking Iranian energy plants to April 7       | LS   | LR   | NA   | NA   
+
+  He Cooked : Trump Creates Wild Fantasy to Make It Look Like He Still In  | HR   | LR   | NA   | LR   
+
+Gulf states tell US ending the war is not enough , Iran capabilities must  | LR   | MS   | NA   | MR   
+
+Gulf states tell US ending the war is not enough , Iran capabilities must  | NA   | NA   | NA   | NA   
+
+Gulf States Demand Iran Capabilities Be Curb After War - Pakistan Today    | NA   | NA   | NA   | NA   
+
+Israel Army Confirms Struck Two Nuclear Sites in Iran                      | NA   | LS   | NA   | LS   
+
+Israeli army confirms struck 2 nuclear sites in Iran                       | NA   | NA   | NA   | NA   
+
+  Strait of Trump : US president says Iran must open key waterway          | LS   | MR   | NA   | MR   
+
+  Iran will exact HEAVY price for Israeli crimes : Araghchi slams Israeli  | HR   | NA   | HR   | LS   
+
+Iran says Israeli attacks on plants  contradict U . S . 10 - day pause     | NA   | NA   | NA   | NA   
+
+War on Iran during nuclear negotiations undermines the US ability to talk  | NA   | NA   | NA   | NA   
+
+Witkoff : We expect talks with Iran this week                              | MS   | MR   | LS   | NA   
+
+Iran says nuclear facilities hit by strikes after Israel warns attacks  wi | NA   | NA   | NA   | NA   
+
+Gulf War : Will Trump Strike A Deal With Iran ?                            | NA   | NA   | NA   | NA   
+
+Trump energy policy a  giant chess game : Tiana Lowe Doescher              | NA   | NA   | NA   | NA   
+
+Logic , Logistics , And At Least Another 10 Days ...                       | NA   | NA   | NA   | NA   
+
+Iran likely to respond on Friday to Trump 15 - point peace plan : Report   | NA   | NA   | NA   | NA   
+
+Trump reveals Iran  present : 10 oil tankers through the Strait of Hormuz  | MS   | MR   | LR   | LS   
+
+At least 10 US service members hurt during Iranian missile attack in Saudi | NA   | NA   | NA   | NA   
+
+Iran Warns Israel Over Strikes on Nuclear , Steel Facilities               | NA   | NA   | NA   | NA   
+
+Which key Iranian figures have been killed in US - Israeli strikes ?       | NA   | NA   | NA   | NA   
+
+Factbox - Which key Iranian figures have been killed in US - Israeli strik | NA   | NA   | NA   | NA   
+
+Which key Iranian figures have been assassinated in US - Israeli strikes ? | NA   | NA   | NA   | NA   
+
+At UN , Iran calls Minab school strike which killed 175 as  deliberate and | NA   | NA   | NA   | NA   
+
+  Hotel becomes American the moment US soldiers check in : Iran warns of t | NA   | NA   | NA   | NA   
+
+Iranian missile and drone strike on Saudi base leaves at least 10 US troop | NA   | NA   | NA   | NA   
+
+At least 10 US troops injured in Iranian missile attack as aircraft damage | NA   | NA   | NA   | NA   
+
+Iran soccer team honours victims of deadly airstrike on primary school     | NA   | NA   | NA   | NA   
+
+Israel Is Dropping 2 , 000 - Pound Bombs on Densely - Populated Tehran , R | NA   | NA   | NA   | NA   
+
+Tehran accuses US of  calculated  assault on school                        | NA   | NA   | NA   | NA   
+
+UN seeking answers from US about deadly strike on Iranian school that kill | NA   | NA   | NA   | NA   
+
+What is Trump approval rating ? It is notching lower amid Iran war         | NA   | NA   | NA   | NA   
+
+US fires over 850 Tomahawk missiles in Iran war as stockpile concerns rise | NA   | NA   | NA   | NA   
+
+Iran FM says Israel strikes on nuclear sites contradict Trump extended dip | NA   | NA   | NA   | NA   
+
+Tehran strikes military base in Saudi Arabia after Israel hits Iranian nuc | NA   | NA   | NA   | NA   
+
+Twelve US troops wounded in Iran strike on base in Saudi Arabia , US offic | NA   | NA   | NA   | NA   
+
+No damage detected after Bushehr Nuclear Power Plant in Iran attack : IAEA | NA   | NA   | NA   | NA   
+
+Iranian missile attack leaves  at least 10  US troops injured as planes da | NA   | NA   | NA   | NA   
+
+Iran IRGC issues warning to people of West Asia ; says ,  it is our duty e | NA   | NA   | NA   | NA   
+
+Chair of the NATO Military Committee :  European nations step in for the U | NA   | NA   | NA   | NA   
+
+  At least 10  US troops injured after missile attack at key airbase       | NA   | NA   | NA   | NA   
+
+Pentagon Insider Warns Iranian Sleeper Cells Are  More Deadly Than ISIS    | NA   | NA   | NA   | NA   
+
+Iran Bushehr nuclear plant in crosshairs for third time in 10 days , IAEA  | NA   | NA   | NA   | NA   
+
+At least 12 US troops hurt in Iranian strike on Saudi base , refueling pla | NA   | NA   | NA   | NA   
+
+Tehran to enable humanitarian aid through Hormuz , 3 Iranian nuclear sites | NA   | NA   | NA   | NA   
+
+Missile strike on Saudi air base injures 10 US troops                      | NA   | NA   | NA   | NA   
+
+Qassem Basir , Etemad , Fattah - 2 : Where are Iran most advanced missiles | NA   | NA   | NA   | NA   
+
+Twelve U . S . troops wounded in Iran strike on base in Saudi Arabia , U . | NA   | NA   | NA   | NA   
+
+Who are the Houthis , Iran allies in Yemen ? | The Jerusalem Post          | NA   | NA   | NA   | NA   
+
+Israel Hits Iran Two Largest Steel Factories As Tehran Warns Of  Heavy Pri | NA   | NA   | NA   | NA   
+
+China welcomes Pakistan mediation in U . S .- Iran talks                   | NA   | NA   | NA   | NA   
+
+Trump delays strikes on Iran energy sites as Strait of Hormuz remains  clo | NA   | NA   | NA   | NA   
+
+Israel strikes deep in Tehran as Mideast war enters 2nd month              | NA   | NA   | NA   | NA   
+
+Pakistan Declining Strategic Role in Gulf Amid Iran Snub                   | NA   | NA   | NA   | NA   
+
+Trump eyes 10 , 000 more troops as Israeli army is nearing collapse        | NA   | NA   | NA   | NA   
+
+Pakistan playing  pivotal role  in ending US - Iran war : Khawaja Asif     | NA   | NA   | NA   | NA   
+
+نشر زوارق انتحارية و10 آلاف جندي .. واشنطن  | NA   | NA   | NA   | NA   
+
+Irans response to US peace proposal expected Friday : Reuters              | NA   | NA   | NA   | NA   
+
+Iran Latest Response Shows Theyre Miscalculating Again - It Likely to Be a | NA   | NA   | NA   | NA   
+
+PAK tries playing arbitrator between US - Iran , continues its  open war   | NA   | NA   | NA   | NA   
+
+Pakistan says holding  detailed discussion with leaders in Iran and Gulf   | NA   | NA   | NA   | NA   
+
+Why Pakistan Has Emerged as a Key Mediator Between US and Iran             | NA   | NA   | NA   | NA   
+
+G7 Meeting Ends with Joint Statement Despite Reported Splits Over Iran War | NA   | NA   | NA   | NA   
+
+Kerosene hiked to Rs433 . 40 per litre , petrol , diesel held steady as PM | NA   | NA   | NA   | NA   
+
+Iran response to US peace proposal expected Friday                         | NA   | NA   | NA   | NA   
+
+Pakistan steps in as mediator in Iran U . S . tensions                     | NA   | NA   | NA   | NA   
+
+Why Pakistan has emerged as a mediator between US and Iran                 | NA   | NA   | NA   | NA   
+
+Shocking Iran X Post Targets Trump Over Epstein Scandal During War Tension | NA   | NA   | NA   | NA   
+
+Pakistan remains central to regional de - escalation , says China , stress | NA   | NA   | NA   | NA   
+
+Trump holding back on strikes on Iran energy infra because of market conce | NA   | NA   | NA   | NA   
+
+Middle East Power Struggle Faces Defining Moment                           | NA   | NA   | NA   | NA   
+
+Iran Warns Israel of Heavy Price After Airstrikes - Pakistan Today         | NA   | NA   | NA   | NA   
+
+US envoy hopeful on Iran talks as strikes target nuclear facilities        | NA   | NA   | NA   | NA   
+
+Even Fox personalities are struggling to defend the Trump administration m | NA   | NA   | NA   | NA   
+
+Shaheen , Schumer , Reed , Warner , Warren Statement on Trump Administrati | NA   | NA   | NA   | NA   
+
+Aakar Patel : Why I Want Iran To Win - Rediff . com India News             | NA   | NA   | NA   | NA   
+
+Trump Treasury Drops Sanctions on Putin Henchmen With War Ties             | NA   | NA   | NA   | NA   
+
+Strait of Hormuz disruptions : India crude buys from Russia may double fro | NA   | NA   | NA   | NA   
+
+Inside Iran Payment Network and Global Sanctions Strategy                  | NA   | NA   | NA   | NA   
+
+China denies reports SMIC sent chipmaking tools to Iran                    | NA   | NA   | NA   | NA   
+
+Why Nigeria fell short of Iran under sanctions ,  By Gimba Kakanda        | NA   | NA   | NA   | NA   
+
+Strait of Hormuz blockage : Key facts , figures , and impact on global oil | NA   | NA   | NA   | NA   
+
+Alireza Tangsiri … The Supreme Leader Man in the Shipping Lanes          | NA   | NA   | NA   | NA   
+
+Iranian Oil Revenue Climbs to $139 Million Daily Amid Strait of Hormuz Dis | NA   | NA   | NA   | NA   
+
+India Reopens Energy Talks With Russia Amid Global Price Surge : Reports   | NA   | NA   | NA   | NA   
+
+Trump Iran war pushes India to rekindle old friendship with Russia : Repor | NA   | NA   | NA   | NA   
+
+Commentary : The Iran war is now all about the future of Hormuz            | NA   | NA   | NA   | NA   
+
+Iran starts to formalize its chokehold on the Strait of Hormuz with a  tol | NA   | NA   | NA   | NA   
+
+Iran puts toll booth for oil tankers in Strait of Hormuz                   | NA   | NA   | NA   | NA   
+
+SMIC sent chipmaking tools to Iran military , Trump administration officia | NA   | NA   | NA   | NA   
+
+Epic Fail : Israel , CIA , Gabbard Feeding Trump Fake Intel on Iran - Patr | NA   | NA   | NA   | NA   
+
+AI Research Is Getting Harder to Separate From Geopolitics                 | NA   | NA   | NA   | NA   
+
+Backgrounder : Canada imposes additional sanctions against Iran            | NA   | NA   | NA   | NA   
+
+How Iran is seeking to cash in on controlling the Strait of Hormuz         | NA   | NA   | NA   | NA   
+
+  Couldnt even lock down his own inbox : Kash Patel hammered after email h | NA   | NA   | NA   | NA   
+
+Chinese vessels cautious about Iran safe shipping corridor amid mounting e | NA   | NA   | NA   | NA   
+
+Iran Fantasy of Strength : When Bazaar Tactics Collide with Reality by Pie | NA   | NA   | NA   | NA   
+
+Iran starts to formalize chokehold on Hormuz Strait with  toll booth  regi | NA   | NA   | NA   | NA   
+
+Top Putin ally predicts Europe and Britain will  beg  for Russian energy � | NA   | NA   | NA   | NA   
+
+Dow Jones Top Markets Headlines at 7 PM ET : Market Dive Points to Wall St | NA   | NA   | NA   | NA   
+
+Iran Dismisses U . S . Ceasefire Plan , Lists Counter - Demands , State Me | NA   | NA   | NA   | NA   
+
+Israel army reports war first missile attack from Yemen                    | NA   | NA   | NA   | NA   
+
+US / Israel - Iran War ( Day 28 ): Israel military could  collapse , top o | NA   | NA   | NA   | NA   
+
+Iran - US war : Pakistan , Saudi , Turkish , Egyptian FMs to meet in Islam | NA   | NA   | NA   | NA   
+
+Comparing Iran , Iraq wars is  31 flavors of delusion : Joe Concha         | NA   | NA   | NA   | NA   
+
+Tesla , NVIDIA , Microsoft to Apple : Magnificent 7 stocks market cap cras | NA   | NA   | NA   | NA   
+
+Stephens : The war is going better than you think                          | NA   | NA   | NA   | NA   
+
+Iran is getting under Trump skin by using his  Art of the Deal  against hi | NA   | NA   | NA   | NA   
+
+Intel Leak Blows Up Donald Trump Big War Boasts                            | NA   | NA   | NA   | NA   
+
+Iran war : Israel hits Iranian heavy water nuclear reactor                 | NA   | NA   | NA   | NA   
+
+Israel hits Tehran with wave of strikes and warns attacks on Iran  will es | NA   | NA   | NA   | NA   
+
+A war of regression : how Trump bombed the US into a worse position with I | NA   | NA   | NA   | NA   
+
+The United States is Formally at War with Iran , At Least the Swiss Say So | NA   | NA   | NA   | NA   
+
+Israel warns attacks on Iran  will escalate and expand                     | NA   | NA   | NA   | NA   
+
+  This is insanity : Senator slams Trump as US burns $2 billion daily whil | NA   | NA   | NA   | NA   
+
+  Attacks in Iran will escalate , Israel says at it strikes  heart of Tehr | NA   | NA   | NA   | NA   
+
+What we know about Iran military capabilities by tracking drone and missil | NA   | NA   | NA   | NA   
+
+As Iran War Spirals , Trump Cant Fool Markets Forever - The American Conse | NA   | NA   | NA   | NA   
+
+German chancellor criticizes US , Israeli military strategy in Iran        | NA   | NA   | NA   | NA   
+
+Iran latest : CENTCOM commander says 303 US troops have been wounded in wa | NA   | NA   | NA   | NA   
+
+Israel launches a new wave of strikes on Iran with no sign of diplomatic b | NA   | NA   | NA   | NA   
+
+------------------------------------------------------------------------------------------
+
+BAYESIAN UPDATES
+--------------------------------------------------------------------------------
+ID    | Hypothesis          | Prior     | Posterior | Friction  | Interpretation
+--------------------------------------------------------------------------------
+H1    | H1: Negotiated Ceasefire - | 25.000%   | 3.6476%   | 0.5000    | Neutral
+H2    | H2: Ground Invasion Escalation - US escalates to ground operations, seizing Kharg Island, Qeshm, or nuclear material sites| 25.000%   | 5.4714%   | 0.5000    | Neutral
+H3    | H3: Iran Capitulates and accepts USA's terms — nuclear program dismantlement, missile limits, regional proxy withdrawal| 25.000%   | 70.363%   | 0.5000    | Neutral
+H4    | H4: Protracted stalemate| 25.000%   | 20.517%   | 0.5000    | Neutral
+--------------------------------------------------------------------------------
