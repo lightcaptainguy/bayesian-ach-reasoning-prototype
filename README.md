@@ -63,9 +63,13 @@ active development.
 ### Report 01 — Will the USA-Iran War Stretch? (March 28, 2026)
 
 Scenario: Day 27 of US-Israel-Iran war, assessing near-term outcome
+
 Hypotheses: Negotiated Ceasefire / Ground Invasion / Iran Capitulates / Protracted Stalemate
+
 Priors: Equal (0.25 each), genuine ambiguity, let evidence decide
+
 Result: H3 (Iran Capitulates) 70.4%, H4 (Stalemate) 20.5%, H2 (Invasion) 5.5%, H1 (Ceasefire) 3.6%
+
 Key insight: ACH elimination logic — H3 leads not because evidence confirms capitulation, but because ceasefire, invasion, and stalemate face stronger contradictions in the current evidence set
 
 
