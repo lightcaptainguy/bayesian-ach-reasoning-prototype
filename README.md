@@ -28,6 +28,7 @@ The system models an analyst's reasoning process:
   information than binary while staying analytically grounded
 
 ## Architecture
+```
 src/
 ├── main.cpp — pipeline: GDELT fetch → analyst input → reasoning loop
 ├── bayesian.cpp — core math: uncondprob, posteriorvalue,
@@ -37,7 +38,7 @@ include/
 ├── bayesian.h — function declarations
 ├── json.hpp — nlohmann/json (header-only)
 ├── httplib.h — cpp-httplib (header-only)
-
+```
 
 ## Output
 
