@@ -5,6 +5,7 @@
 #include <iomanip>
 using namespace std;
 
+
 double weightTolikelihood(Weight w) {
     switch(w) {
         case Weight::HIGH_SUPPORT:   return 0.9;
@@ -59,18 +60,19 @@ void calculateInconsistency(vector<Hypotheses>& Hypotheses, const vector<Evidenc
         }
     }
 }
-void printdetailedreport(vector<Hypotheses>& hypotheses, const vector<Evidence>& evidencenames, const vector<vector<Weight>>& evidenceweights, const vector<Hypotheses>& originalHypotheses)  {
-    cout << "\n Reasoning Output \n";
-    cout << "Scenario: test\n\n";
-   std::cout << "ACH MATRIX (Evidence vs Hypotheses)\n";
-    std::cout << std::string(90, '-') << "\n";
-    std::cout << "Evidence / Hypothesis\t";
+void printdetailedreport(vector<Hypotheses>& hypotheses, const vector<Evidence>& evidencenames, const vector<vector<Weight>>& evidenceweights, const vector<Hypotheses>& originalHypotheses, ostream& out) {
+    out << "\n Reasoning Output \n";
+   out << "ACH MATRIX (Evidence vs Hypotheses)\n" ;
+    out << std::string(90, '-') << "\n";
+    out << left << setw(55) << "Evidence / Hypothesis";
+
     for (const auto& h : hypotheses) {
-        std::cout << "| " << h.name << " ";
+        out << "| " << h.name << " ";
     }
-    std::cout << "\n" << std::string(90, '-') << "\n";
+    out << "\n" << std::string(90, '-') << "\n";
     for (size_t e = 0; e < evidencenames.size(); ++e) {
-        std::cout << evidencenames[e].description << "\t\t";
+        out << left << setw(75) << evidencenames[e].description.substr(0, 74);
+
         
         for (size_t h = 0; h < hypotheses.size(); ++h) {
 
@@ -86,17 +88,19 @@ void printdetailedreport(vector<Hypotheses>& hypotheses, const vector<Evidence>&
                 case Weight::NA:              label = "NA"; break;
                 default:                      label = "NA";
             }
-            std::cout << "| " << label << "  ";
+           out << "| " << setw(5) << label;
+
         }
-        std::cout << "\n";
+        out << "\n\n";
     }
 
-    std::cout << std::string(90, '-') << "\n\n";
+    out << std::string(90, '-') << "\n\n";
 
-    std::cout << "BAYESIAN UPDATES\n";
-    std::cout << std::string(80, '-') << "\n";
-    std::cout << "ID\t| Hypothesis\t\t| Prior\t| Posterior\t| Friction\t| Interpretation\n";
-    std::cout << std::string(80, '-') << "\n";
+    out << "BAYESIAN UPDATES\n";
+    out << std::string(80, '-') << "\n";
+    out << left << setw(6) << "ID" << "| " << setw(20) << "Hypothesis" << "| " << setw(10) << "Prior" << "| " << setw(10) << "Posterior" << "| " << setw(10) << "Friction" << "| Interpretation\n";
+
+    out << std::string(80, '-') << "\n";
 
     for (size_t i = 0; i < hypotheses.size(); ++i) {
         double incons = hypotheses[i].inconsistency;  
@@ -107,11 +111,13 @@ void printdetailedreport(vector<Hypotheses>& hypotheses, const vector<Evidence>&
         else if (incons < 0.9) interp = "Mildly inconsistent";
         else                   interp = "Strongly inconsistent";
 
-        std::cout << "H" << (i+1) << "\t| " << hypotheses[i].name 
-                  << "\t| " << originalHypotheses[i].prior*100 << "%"
-                  << "\t| " << hypotheses[i].posterior*100 << "%"
-                  << "\t| " << incons
-                  << "\t| " << interp << "\n";
+       out << left << setw(6) << ("H" + to_string(i+1))
+          << "| " << setw(20) << hypotheses[i].name
+          << "| " << setw(10) << to_string(originalHypotheses[i].prior*100).substr(0,6) + "%"
+          << "| " << setw(10) << to_string(hypotheses[i].posterior*100).substr(0,6) + "%"
+          << "| " << setw(10) << incons
+          << "| " << interp << "\n";
+
     }
-    std::cout << std::string(80, '-') << "\n";
+    out << std::string(80, '-') << "\n";
 }

@@ -1,11 +1,22 @@
 {
 "Hypotheses":
 
-   [{"name":"H1", "prior":0.5, "posterior":0.0,"inconsistency": 0.0 },
-   {"name":"H2", "prior":0.3, "posterior":0.0, "inconsistency":0.0},
-   {"name":"H3", "prior":0.2, "posterior":0.0, "inconsistency":0.0}],
+   [{"name":"H1: Negotiated Ceasefire - ", "prior":0.25, "posterior":0.25,"inconsistency": 0.0 },
+   {"name":"H2: Ground Invasion Escalation - US escalates to ground operations, seizing Kharg Island, Qeshm, or nuclear material sites", "prior":0.25, "posterior":0.25, "inconsistency":0.0},
+   {"name":"H3: Iran Capitulates and accepts USA's terms — nuclear program dismantlement, missile limits, regional proxy withdrawal", "prior":0.25, "posterior":0.25, "inconsistency":0.0},
+   {"name":"H4: Protracted stalemate", "prior":0.25, "posterior":0.25, "inconsistency":0.0}],
 
 "Evidence":
    [{"description":"E1", "Weight":["HIGH_SUPPORT", "MEDIUM_REFUTE"], "credibility":0.95},
-   {"description":"E2", "Weight":["MEDIUM_REFUTE", "HIGH_SUPPORT"], "credibility":0.30}]
+   {"description":"E2", "Weight":["MEDIUM_REFUTE", "HIGH_SUPPORT"], "credibility":0.30}],
+
+"Scenario": "USA-Iran War 2026 - Near term outcome assessment",
+"Queries" : [
+  "Iran+nuclear+deal+sourcelang:english",
+"Iran+military+strike+sourcelang:english", 
+"Iran+diplomacy+sourcelang:english",
+"Iran+sanctions+sourcelang:english",
+"Iran+war+sourcelang:english"
+
+]
 }
