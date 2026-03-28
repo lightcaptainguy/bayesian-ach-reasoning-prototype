@@ -54,7 +54,20 @@ g++ src/main.cpp src/bayesian.cpp -o src/main -lws2_32 -lssl -lcrypto -lcrypt32
 Requires OpenSSL (mingw-w64-x86_64-openssl via pacman on MSYS2).
 
 ## Status
-Working prototype, active development.
+Working prototype - first complete report generated on March 28th, 2026
+
+active development.
+
+## Reports
+
+### Report 01 — Will the USA-Iran War Stretch? (March 28, 2026)
+
+Scenario: Day 27 of US-Israel-Iran war, assessing near-term outcome
+Hypotheses: Negotiated Ceasefire / Ground Invasion / Iran Capitulates / Protracted Stalemate
+Priors: Equal (0.25 each), genuine ambiguity, let evidence decide
+Result: H3 (Iran Capitulates) 70.4%, H4 (Stalemate) 20.5%, H2 (Invasion) 5.5%, H1 (Ceasefire) 3.6%
+Key insight: ACH elimination logic — H3 leads not because evidence confirms capitulation, but because ceasefire, invasion, and stalemate face stronger contradictions in the current evidence set
+
 
 ## ***(old devlogs) Timeline****
  
@@ -102,6 +115,16 @@ Also architected the workflow ( high-level, on paper) and defined what is needed
   - `weightTolikelihood()` — maps Weight enum → numeric likelihood (0.1–0.9)   
   - `uncondprob()` — computes P(B) normalizing constant using Law of Total Probability (∑ P(B|Ai) × P(Ai))  
   - `posteriorvalue()` — performs Bayesian update in-place on all hypotheses given one piece of evidence  
-- Core Bayesian reasoning is now functional for sequential ACH updates (one evidence at a time, posteriors become new priors)  
+- Core Bayesian reasoning is now functional for sequential ACH updates (one evidence at a time, posteriors become new priors)
+
+***Date 28th March, 2026*** -> Complete evidence pipeline shipped + first report generated:
+
+- Multi-query GDELT fetch with deduplication
+- Analyst credibility scoring (0.0–1.0) per source at terminal
+- Sensitivity analysis fully working — posterior delta per evidence item per hypothesis
+- Friction scoring reimplemented correctly
+- Dual output report -- ACH matrix + Bayesian updates in single formatted output
+- Critical bug fix -- default weight for unscored articles changed HS → NA
+- Report 01 complete -- USA-Iran War near-term outcome assessment
 
 
