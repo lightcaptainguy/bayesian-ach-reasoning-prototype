@@ -74,6 +74,7 @@ int main() {
 
     vector<Evidence> allevidence;
     int selectedArticleIndex = -1;
+    map<int, int> submittedMap;
 
     const char* weightNames[] = {"HIGH_SUPPORT", "MEDIUM_SUPPORT", "LOW_SUPPORT", "NA", "LOW_REFUTE", "MEDIUM_REFUTE", "HIGH_REFUTE"};
     Weight weightValues[] = {Weight::HIGH_SUPPORT, Weight::MEDIUM_SUPPORT, Weight::LOW_SUPPORT, Weight::NA, Weight::LOW_REFUTE, Weight::MEDIUM_REFUTE, Weight::HIGH_REFUTE};
@@ -129,8 +130,17 @@ int main() {
             bool selected = (selectedArticleIndex == i);
             if (ImGui::Selectable(articles[i].title.c_str(), selected)) {
                 selectedArticleIndex = i;
+                if (submittedMap.count(i) > 0) {
+                    int evidenceIndex = submittedMap[i];
+                    for (int j=0; j<allHypotheses.size(); j++) {
+                        currentWeightIndices[j] = (int)allevidence[evidenceIndex].Weight[j];
+                    }
+                    credibility = allevidence[evidenceIndex].credibility;
+                }
+                else {
                 fill(currentWeightIndices.begin(), currentWeightIndices.end(), 3); // reset to NA
                 credibility = 0.5f;
+            }
             }
             if (ImGui::IsItemHovered()) {
                 ImGui::SetTooltip("%s", articles[i].url.c_str());
@@ -161,7 +171,14 @@ int main() {
                     ev.Weight.push_back(weightValues[currentWeightIndices[i]]);
                 }
                 ev.credibility = credibility;
-                allevidence.push_back(ev);
+                if (submittedMap.count(selectedArticleIndex) > 0) {
+                    allevidence[submittedMap[selectedArticleIndex]] = ev;
+                }
+                else {
+                    allevidence.push_back(ev);
+                    submittedMap[selectedArticleIndex] = allevidence.size() - 1;
+                }
+        
                 selectedArticleIndex = -1;
             }
         }
@@ -224,7 +241,40 @@ int main() {
             for (const auto& h : runHypotheses) {
                 ImGui::Text("%-40s  %.2f%%   friction: %.3f", h.name.c_str(), h.posterior * 100.0, h.inconsistency);
             }
+            ImGui::Separator();
+            ImGui::Text("Sensitivity Analysis");
+            ImGui::Separator();
+            vector<Hypotheses> baselinePosteriors = runHypotheses;
+            vector<vector<double>> sensitivityDeltas;
+
+            for (auto& ev : allevidence) {
+                vector<Weight> savedWeights = ev.Weight;
+                fill(ev.Weight.begin(), ev.Weight.end(), Weight::NA);
+                vector<Hypotheses> tempHyp = originalHypotheses;
+                for (auto& e : allevidence) {
+                    double probB = uncondprob(tempHyp, e.Weight);
+                    if (probB == 0) continue;
+                    posteriorvalue(tempHyp, e.Weight, probB);
+                    updatePriors(tempHyp);
+                }
+                vector<Hypotheses> sensitivityPosteriors = tempHyp;
+                vector<double> evDeltas;
+                for (size_t i = 0; i < tempHyp.size(); i++) {
+                    double delta = baselinePosteriors[i].posterior - sensitivityPosteriors[i].posterior;
+                    evDeltas.push_back(delta);
+                }
+                sensitivityDeltas.push_back(evDeltas);
+                ev.Weight = savedWeights;
+            }
+for (int e=0; e <allevidence.size(); e++) {
+    ImGui::Text("E%d: %s", e + 1, allevidence[e].description.substr(0, 30).c_str());
+    for (int h = 0; h < (int)allHypotheses.size(); h++) {
+        ImGui::Text("  %s: %+.3f", allHypotheses[h].name.c_str(), sensitivityDeltas[e][h]);
+    }
+    ImGui::Spacing();
+}
         }
+
         ImGui::End();
 
         ImGui::Render();
