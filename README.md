@@ -30,14 +30,18 @@ The system models an analyst's reasoning process:
 ## Architecture
 ```
 src/
-├── main.cpp — pipeline: GDELT fetch → analyst input → reasoning loop
-├── bayesian.cpp — core math: uncondprob, posteriorvalue,
-calculateInconsistency, sensitivity analysis
+├── main.cpp       — terminal pipeline: GDELT fetch → analyst input → reasoning loop → report
+├── gui_test.cpp   — ImGui GUI: dockable panels, live GDELT feed, interactive weight input
+├── bayesian.cpp   — core math: uncondprob, posteriorvalue,
+│                    calculateInconsistency, sensitivity analysis
+├── imgui/         — ImGui docking branch + SDL2/OpenGL3 backends
 include/
-├── types.h — Hypotheses struct, Evidence struct, Weight enum
-├── bayesian.h — function declarations
-├── json.hpp — nlohmann/json (header-only)
-├── httplib.h — cpp-httplib (header-only)
+├── types.h        — Hypotheses, Evidence, Article structs; Weight enum
+├── bayesian.h     — function declarations
+├── json.hpp       — nlohmann/json (header-only)
+├── httplib.h      — cpp-httplib (header-only)
+src/
+├── trial.json     — scenario file (hypotheses, priors, GDELT queries)
 ```
 
 ## Output
@@ -48,15 +52,22 @@ include/
 
 ## Build
 
+**Terminal pipeline:**
 ```bash
-g++ src/main.cpp src/bayesian.cpp -o src/main -lws2_32 -lssl -lcrypto -lcrypt32
+g++ src/main.cpp src/bayesian.cpp -o src/main -Iinclude -lws2_32 -lssl -lcrypto -lcrypt32
 ```
-Requires OpenSSL (mingw-w64-x86_64-openssl via pacman on MSYS2).
+
+**GUI:**
+```bash
+g++ src/gui_test.cpp src/bayesian.cpp src/imgui/*.cpp -o src/gui_test -I/ucrt64/include -I/ucrt64/include/SDL2 -Iinclude -lmingw32 -lSDL2main -lSDL2 -lopengl32 -lws2_32 -lssl -lcrypto -lcrypt32 -mconsole
+```
+
+Requires MSYS2 UCRT64 toolchain with:
+- `mingw-w64-ucrt-x86_64-openssl`
+- `mingw-w64-ucrt-x86_64-SDL2`
 
 ## Status
-Working prototype - first complete report generated on March 28th, 2026
-
-active development.
+Active development — GUI shipped April 1st, 2026.
 
 ## Reports
 
@@ -130,5 +141,15 @@ Also architected the workflow ( high-level, on paper) and defined what is needed
 - Dual output report -- ACH matrix + Bayesian updates in single formatted output
 - Critical bug fix -- default weight for unscored articles changed HS → NA
 - Report 01 complete -- USA-Iran War near-term outcome assessment
+
+***Date 1st April, 2026*** -> GUI shipped:
+
+- ImGui docking branch + SDL2 + OpenGL3 backend
+- 5 dockable panels: Scenario Config, Evidence Feed, Weight Input, ACH Matrix, Bayesian Output
+- Scenario Config loads hypotheses live from JSON
+- Evidence Feed fetches 93+ articles from GDELT on startup, clickable with URL tooltip on hover
+- Weight Input panel: per-hypothesis dropdowns (7-level weight scale) + credibility slider, linked to selected article via index
+- ACH Matrix: live `ImGui::BeginTable` updating on each evidence submission
+- Bayesian Output: reruns full sequential Bayesian loop on submitted evidence each frame, displays posteriors + friction scores live
 
 
