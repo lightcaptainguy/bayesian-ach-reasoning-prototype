@@ -1,0 +1,4 @@
+-IC:/msys64/ucrt64/include
+-IC:/msys64/ucrt64/include/SDL2
+-Iinclude
+-std=c++17

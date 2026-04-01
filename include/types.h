@@ -30,3 +30,8 @@ struct Evidence {
     float credibility = 0.0;
 
 };
+
+struct Article {
+    std::string title;
+    std::string url;
+};
