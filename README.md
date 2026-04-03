@@ -57,15 +57,14 @@ src/
 
 **Terminal pipeline:**
 ```bash
-g++ src/main.cpp src/bayesian.cpp -o src/main -Iinclude -lws2_32 -lssl -lcrypto -lcrypt32
+make terminal
 ```
 
 **GUI:**
 ```bash
-g++ src/gui_test.cpp src/bayesian.cpp src/imgui/*.cpp -o src/gui_test -I/ucrt64/include -I/ucrt64/include/SDL2 -Iinclude -lmingw32 -lSDL2main -lSDL2 -lopengl32 -lws2_32 -lssl -lcrypto -lcrypt32 -mconsole
+make gui
 
 ```
-
 Requires MSYS2 UCRT64 toolchain with:
 - `mingw-w64-ucrt-x86_64-openssl`
 - `mingw-w64-ucrt-x86_64-SDL2`
