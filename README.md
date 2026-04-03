@@ -70,6 +70,11 @@ Requires MSYS2 UCRT64 toolchain with:
 - `mingw-w64-ucrt-x86_64-openssl`
 - `mingw-w64-ucrt-x86_64-SDL2`
 
+For LLM Pre Scoring, requires Ollama + Qwen 2.5 7b model:
+- ``` ollama pull qwen2.5:7b ```
+- The LLM endpoint is configurable in the Scenario Config panel at runtime, defaults to http://localhost:11434
+
+
 ## Status
 Active development — LLM Pre Scoring shipped April 3rd, 2026.
 
