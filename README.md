@@ -9,12 +9,13 @@ updating, from live news data from the GDELT Project DOC 2.0 API.
 The system models an analyst's reasoning process:
 
 1. Load hypotheses from a JSON scenario file with initial priors
-2. Fetch recent news articles from GDELT (live, real-time)
-3. Analyst reviews each article and assigns evidence weights 
-   (HIGH_SUPPORT → HIGH_REFUTE) and source credibility (0.0–1.0)
-4. Engine runs sequential Bayesian updates across all evidence
-5. Outputs a structured ACH matrix, posterior probabilities, 
-   friction scores, and sensitivity analysis
+2. Fetch recent news articles from GDELT (live, real-time) on a background thread
+3. Local LLM (via Ollama) pre-scores each article against hypotheses automatically
+4. Analyst reviews LLM suggestions, accepts or overrides weights per hypothesis
+5. Engine runs sequential Bayesian updates across all submitted evidence
+6. Outputs a structured ACH matrix, posterior probabilities, 
+   friction scores, and sensitivity analysis, and an posterior probabilities bar graph.
+
 
 ## Methodology
 
@@ -30,18 +31,20 @@ The system models an analyst's reasoning process:
 ## Architecture
 ```
 src/
-├── main.cpp       — terminal pipeline: GDELT fetch → analyst input → reasoning loop → report
-├── gui_test.cpp   — ImGui GUI: dockable panels, live GDELT feed, interactive weight input
-├── bayesian.cpp   — core math: uncondprob, posteriorvalue,
-│                    calculateInconsistency, sensitivity analysis
-├── imgui/         — ImGui docking branch + SDL2/OpenGL3 backends
+├── main.cpp — terminal pipeline: GDELT fetch → analyst input → reasoning loop → report
+├── gui_test.cpp — ImGui GUI: dockable panels, live GDELT feed, LLM pre-scoring, interactive weight input
+├── bayesian.cpp — core math: uncondprob, posteriorvalue,
+│ calculateInconsistency, sensitivity analysis
+├── imgui/ — ImGui docking branch + SDL2/OpenGL3 backends
 include/
-├── types.h        — Hypotheses, Evidence, Article structs; Weight enum
-├── bayesian.h     — function declarations
-├── json.hpp       — nlohmann/json (header-only)
-├── httplib.h      — cpp-httplib (header-only)
+├── types.h — Hypotheses, Evidence, Article structs; Weight enum
+├── bayesian.h — function declarations
+├── json.hpp — nlohmann/json (header-only)
+├── httplib.h — cpp-httplib (header-only)
 src/
-├── trial.json     — scenario file (hypotheses, priors, GDELT queries)
+├── trial.json — scenario file (hypotheses, priors, GDELT queries)
+
+
 ```
 
 ## Output
@@ -60,6 +63,7 @@ g++ src/main.cpp src/bayesian.cpp -o src/main -Iinclude -lws2_32 -lssl -lcrypto 
 **GUI:**
 ```bash
 g++ src/gui_test.cpp src/bayesian.cpp src/imgui/*.cpp -o src/gui_test -I/ucrt64/include -I/ucrt64/include/SDL2 -Iinclude -lmingw32 -lSDL2main -lSDL2 -lopengl32 -lws2_32 -lssl -lcrypto -lcrypt32 -mconsole
+
 ```
 
 Requires MSYS2 UCRT64 toolchain with:
@@ -67,7 +71,7 @@ Requires MSYS2 UCRT64 toolchain with:
 - `mingw-w64-ucrt-x86_64-SDL2`
 
 ## Status
-Active development — GUI shipped April 1st, 2026.
+Active development — LLM Pre Scoring shipped April 3rd, 2026.
 
 ## Reports
 
@@ -151,5 +155,12 @@ Also architected the workflow ( high-level, on paper) and defined what is needed
 - Weight Input panel: per-hypothesis dropdowns (7-level weight scale) + credibility slider, linked to selected article via index
 - ACH Matrix: live `ImGui::BeginTable` updating on each evidence submission
 - Bayesian Output: reruns full sequential Bayesian loop on submitted evidence each frame, displays posteriors + friction scores live
+
+***Date 3rd April, 2026*** -> LLM Pre-Scoring + UI polish:
+- Local LLM integration via Ollama (OpenAI-compatible API) — fires on article selection, pre-fills weight dropdowns with suggested weights and one-line justifications per hypothesis
+- Human in the loop design — LLM suggestions are always analyst-reviewable, never submitted autonomously
+- Configurable LLM endpoint in Scenario Config panel (defaults to localhost:11434)
+- Sensitivity analysis section now scrollable with horizontal scroll support
+- Bar chart x-axis labels shortened to H1/H2/H3/H4 to fix overlap
 
 
