@@ -7,6 +7,8 @@
 #include "../include/imgui_internal.h"
 #include "../include/imgui_impl_sdl2.h"
 #include "../include/imgui_impl_opengl3.h"
+#include "../include/implot.h"
+#include "../include/implot_internal.h"
 #include <GL/GL.h>
 #include "../include/types.h"
 #include "../include/bayesian.h"
@@ -19,6 +21,8 @@
 #include <chrono>
 #include <set>
 #include <algorithm>
+#include <mutex>
+#include <atomic>
 using namespace std;
 using json = nlohmann::json;
 
@@ -39,37 +43,45 @@ int main() {
     vector<Hypotheses> originalHypotheses = allHypotheses;
 
     vector<Article> articles;
-    httplib::Client cli("https://api.gdeltproject.org");
-    cli.enable_server_certificate_verification(false);
-    cli.set_connection_timeout(30);
-    cli.set_read_timeout(30);
+    mutex articlesMutex;
+    atomic<bool> fetchDone{false};
+    string fetchStatus = "Fetching articles...";
 
-    set<string> seenTitles;
-    for (const auto& q : data["Queries"]) {
-        string query = q.get<string>();
-        cout << "Fetching: " << query << "\n";
-        while (true) {
-            auto res = cli.Get("/api/v2/doc/doc?query=" + query + "&mode=artlist&maxrecords=30&format=json&timespan=1d");
-            if (!res || res->body.empty() || res->body[0] != '{') {
-                cout << "Rate limited, retrying in 30s...\n";
-                this_thread::sleep_for(chrono::seconds(30));
-                continue;
-            }
-            json gdeltdata = json::parse(res->body);
-            for (const auto& art : gdeltdata["articles"]) {
-                string title = art["title"].get<string>();
-                if (seenTitles.find(title) == seenTitles.end()) {
-                    seenTitles.insert(title);
-                    Article a;
-                    a.title = title;
-                    a.url = art["url"].get<string>();
-                    articles.push_back(a);
+    thread fetchThread([&]() {
+        httplib::Client cli("https://api.gdeltproject.org");
+        cli.enable_server_certificate_verification(false);
+        cli.set_connection_timeout(30);
+        cli.set_read_timeout(30);
+        set<string> seenTitles;
+        for (const auto& q : data["Queries"]) {
+            string query = q.get<string>();
+            while (true) {
+                auto res = cli.Get("/api/v2/doc/doc?query=" + query + "&mode=artlist&maxrecords=30&format=json&timespan=1d");
+                if (!res || res->body.empty() || res->body[0] != '{') {
+                    this_thread::sleep_for(chrono::seconds(30));
+                    continue;
                 }
+                json gdeltdata = json::parse(res->body);
+                {
+                    lock_guard<mutex> lock(articlesMutex);
+                    for (const auto& art : gdeltdata["articles"]) {
+                        string title = art["title"].get<string>();
+                        if (seenTitles.find(title) == seenTitles.end()) {
+                            seenTitles.insert(title);
+                            Article a;
+                            a.title = title;
+                            a.url = art["url"].get<string>();
+                            articles.push_back(a);
+                        }
+                    }
+                }
+                break;
             }
-            break;
+            this_thread::sleep_for(chrono::seconds(10));
         }
-        this_thread::sleep_for(chrono::seconds(10));
-    }
+        fetchDone = true;
+    });
+    fetchThread.detach();
 
 
     vector<Evidence> allevidence;
@@ -87,6 +99,7 @@ int main() {
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
+    ImPlot::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     ImGui_ImplSDL2_InitForOpenGL(window, gl_context);
@@ -124,26 +137,29 @@ int main() {
 
     
         ImGui::Begin("Evidence Feed");
-        ImGui::Text("%d articles loaded", (int)articles.size());
-        ImGui::Separator();
-        for (int i = 0; i < (int)articles.size(); i++) {
-            bool selected = (selectedArticleIndex == i);
-            if (ImGui::Selectable(articles[i].title.c_str(), selected)) {
-                selectedArticleIndex = i;
-                if (submittedMap.count(i) > 0) {
-                    int evidenceIndex = submittedMap[i];
-                    for (int j=0; j<allHypotheses.size(); j++) {
-                        currentWeightIndices[j] = (int)allevidence[evidenceIndex].Weight[j];
+        {
+            lock_guard<mutex> lock(articlesMutex);
+            if (!fetchDone)
+                ImGui::Text("Fetching articles... %d loaded", (int)articles.size());
+            else
+                ImGui::Text("%d articles loaded", (int)articles.size());
+            ImGui::Separator();
+            for (int i = 0; i < (int)articles.size(); i++) {
+                bool selected = (selectedArticleIndex == i);
+                if (ImGui::Selectable(articles[i].title.c_str(), selected)) {
+                    selectedArticleIndex = i;
+                    if (submittedMap.count(i) > 0) {
+                        int evidenceIndex = submittedMap[i];
+                        for (int j = 0; j < (int)allHypotheses.size(); j++)
+                            currentWeightIndices[j] = (int)allevidence[evidenceIndex].Weight[j];
+                        credibility = allevidence[evidenceIndex].credibility;
+                    } else {
+                        fill(currentWeightIndices.begin(), currentWeightIndices.end(), 3);
+                        credibility = 0.5f;
                     }
-                    credibility = allevidence[evidenceIndex].credibility;
                 }
-                else {
-                fill(currentWeightIndices.begin(), currentWeightIndices.end(), 3); // reset to NA
-                credibility = 0.5f;
-            }
-            }
-            if (ImGui::IsItemHovered()) {
-                ImGui::SetTooltip("%s", articles[i].url.c_str());
+                if (ImGui::IsItemHovered())
+                    ImGui::SetTooltip("%s", articles[i].url.c_str());
             }
         }
         ImGui::End();
@@ -225,7 +241,25 @@ int main() {
         if (allevidence.empty()) {
             ImGui::Text("No evidence submitted yet");
         } else {
-            
+            if (ImGui::Button("Export Report")) {
+                vector<Hypotheses> exportHyp = originalHypotheses;
+                for (const auto& ev : allevidence) {
+                    double probB = uncondprob(exportHyp, ev.Weight);
+                    if (probB == 0) continue;
+                    posteriorvalue(exportHyp, ev.Weight, probB);
+                    updatePriors(exportHyp);
+                }
+                for (auto& h : exportHyp) h.inconsistency = 0.0;
+                calculateInconsistency(exportHyp, allevidence);
+                vector<vector<Weight>> evidenceWeights;
+                for (const auto& ev : allevidence)
+                    evidenceWeights.push_back(ev.Weight);
+                ofstream outfile("report.txt");
+                printdetailedreport(exportHyp, allevidence, evidenceWeights, originalHypotheses, outfile);
+                outfile.close();
+                cout << "Report exported to report.txt\n";
+            }
+            ImGui::Separator();
             vector<Hypotheses> runHypotheses = originalHypotheses;
             for (const auto& ev : allevidence) {
                 double probB = uncondprob(runHypotheses, ev.Weight);
@@ -273,6 +307,21 @@ for (int e=0; e <allevidence.size(); e++) {
     }
     ImGui::Spacing();
 }
+            ImGui::Separator();
+            ImGui::Text("Posterior Probabilities");
+            vector<double> posteriorValues;
+            vector<const char*> hypothesisLabels;
+            for (const auto& h : runHypotheses) {
+                posteriorValues.push_back(h.posterior * 100.0);
+                hypothesisLabels.push_back(h.name.c_str());
+            }
+            if (ImPlot::BeginPlot("##posteriors", ImVec2(-1, 200))) {
+                ImPlot::SetupAxes(nullptr, "Probability %");
+                ImPlot::SetupAxisLimits(ImAxis_Y1, 0, 100, ImGuiCond_Always);
+                ImPlot::SetupAxisTicks(ImAxis_X1, 0, (int)posteriorValues.size() - 1, (int)posteriorValues.size(), hypothesisLabels.data());
+                ImPlot::PlotBars("##bars", posteriorValues.data(), (int)posteriorValues.size(), 0.6);
+                ImPlot::EndPlot();
+            }
         }
 
         ImGui::End();
@@ -286,6 +335,7 @@ for (int e=0; e <allevidence.size(); e++) {
 
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplSDL2_Shutdown();
+    ImPlot::DestroyContext();
     ImGui::DestroyContext();
     SDL_DestroyWindow(window);
     SDL_Quit();
