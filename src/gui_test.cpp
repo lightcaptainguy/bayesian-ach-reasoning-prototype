@@ -23,8 +23,97 @@
 #include <algorithm>
 #include <mutex>
 #include <atomic>
+#include <map>
+#include <cstdlib>
 using namespace std;
 using json = nlohmann::json;
+
+struct LLMSuggestion {
+    vector<int> weightIndices;
+    vector<string> justifications;
+    bool ready = false;
+    bool failed = false;
+    string errorMsg;
+    int forArticle = -1;
+};
+
+void callClaudeForWeights(
+    string llmBaseUrl,
+    string articleTitle,
+    vector<Hypotheses> hypotheses,
+    LLMSuggestion* suggestion,
+    mutex* suggMutex,
+    atomic<bool>* pending,
+    int articleIndex
+) {
+    string prompt =
+        "You are an intelligence analyst using ACH (Analysis of Competing Hypotheses). "
+        "Score this news article against each hypothesis.\n\n"
+        "Article: " + articleTitle + "\n\nHypotheses:\n";
+    for (int i = 0; i < (int)hypotheses.size(); i++)
+        prompt += "H" + to_string(i + 1) + ": " + hypotheses[i].name + "\n";
+    prompt +=
+        "\nWeight options: HIGH_SUPPORT, MEDIUM_SUPPORT, LOW_SUPPORT, NA, LOW_REFUTE, MEDIUM_REFUTE, HIGH_REFUTE\n"
+        "\nACH principle: look for inconsistency, not confirmation. "
+        "Assign NA unless the article directly speaks to that hypothesis.\n"
+        "\nReturn ONLY valid JSON, no other text:\n"
+        "{\"weights\":[\"NA\",...],\"justifications\":[\"one sentence for H1\",...]}";
+
+    json reqBody = {
+        {"model", "qwen2.5:7b"},
+        {"max_tokens", 512},
+        {"messages", {{{"role", "user"}, {"content", prompt}}}}
+    };
+
+    httplib::Client cli(llmBaseUrl);
+    cli.enable_server_certificate_verification(false);
+    cli.set_connection_timeout(30);
+    cli.set_read_timeout(60);
+
+    httplib::Headers headers = {
+        {"content-type", "application/json"}
+    };
+
+    LLMSuggestion result;
+    result.forArticle = articleIndex;
+
+    auto res = cli.Post("/v1/chat/completions", headers, reqBody.dump(), "application/json");
+    if (!res || res->status != 200) {
+        result.failed = true;
+        result.errorMsg = res ? ("HTTP " + to_string(res->status)) : "connection failed";
+    } else {
+        try {
+            json resp = json::parse(res->body);
+            string content = resp["choices"][0]["message"]["content"].get<string>();
+            size_t start = content.find('{');
+            size_t end = content.rfind('}');
+            if (start == string::npos || end == string::npos)
+                throw runtime_error("no JSON in response");
+
+            json parsed = json::parse(content.substr(start, end - start + 1));
+            map<string, int> wmap = {
+                {"HIGH_SUPPORT", 0}, {"MEDIUM_SUPPORT", 1}, {"LOW_SUPPORT", 2},
+                {"NA", 3}, {"LOW_REFUTE", 4}, {"MEDIUM_REFUTE", 5}, {"HIGH_REFUTE", 6}
+            };
+            for (const auto& w : parsed["weights"]) {
+                string ws = w.get<string>();
+                result.weightIndices.push_back(wmap.count(ws) ? wmap.at(ws) : 3);
+            }
+            for (const auto& j : parsed["justifications"])
+                result.justifications.push_back(j.get<string>());
+            result.ready = true;
+        } catch (exception& e) {
+            result.failed = true;
+            result.errorMsg = string("parse error: ") + e.what();
+        }
+    }
+
+    {
+        lock_guard<mutex> lock(*suggMutex);
+        *suggestion = result;
+    }
+    *pending = false;
+}
 
 int main() {
     
@@ -93,6 +182,12 @@ int main() {
     vector<int> currentWeightIndices(allHypotheses.size(), 3);
     float credibility = 0.5f;
 
+    char llmUrl[256] = "http://localhost:11434";
+
+    LLMSuggestion llmSuggestion;
+    mutex llmMutex;
+    atomic<bool> llmPending{false};
+
     SDL_Init(SDL_INIT_VIDEO);
     SDL_Window* window = SDL_CreateWindow("ACH Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
     SDL_GLContext gl_context = SDL_GL_CreateContext(window);
@@ -127,16 +222,20 @@ int main() {
         ImGui::DockSpace(dockspace_id, ImVec2(0, 0), ImGuiDockNodeFlags_None);
         ImGui::End();
 
-        ImGui::Begin("Scenario Config");
+        ImGui::Begin("Scenario Config", nullptr, ImGuiWindowFlags_HorizontalScrollbar);
         ImGui::Text("Hypotheses");
         ImGui::Separator();
         for (const auto& h : allHypotheses) {
             ImGui::Text("%s", h.name.c_str());
         }
+        ImGui::Separator();
+        ImGui::Text("Local LLM");
+        ImGui::SetNextItemWidth(-1);
+        ImGui::InputText("##llmurl", llmUrl, sizeof(llmUrl));
         ImGui::End();
 
     
-        ImGui::Begin("Evidence Feed");
+        ImGui::Begin("Evidence Feed", nullptr, ImGuiWindowFlags_HorizontalScrollbar);
         {
             lock_guard<mutex> lock(articlesMutex);
             if (!fetchDone)
@@ -156,6 +255,19 @@ int main() {
                     } else {
                         fill(currentWeightIndices.begin(), currentWeightIndices.end(), 3);
                         credibility = 0.5f;
+                        // Trigger LLM pre-scoring for new article
+                        if (llmUrl[0] != '\0' && !llmPending && llmSuggestion.forArticle != i) {
+                            {
+                                lock_guard<mutex> llmLock(llmMutex);
+                                llmSuggestion = LLMSuggestion{};
+                            }
+                            llmPending = true;
+                            string title = articles[i].title;
+                            vector<Hypotheses> hypCopy = allHypotheses;
+                            thread t(callClaudeForWeights, string(llmUrl), title, hypCopy,
+                                     &llmSuggestion, &llmMutex, &llmPending, i);
+                            t.detach();
+                        }
                     }
                 }
                 if (ImGui::IsItemHovered())
@@ -165,12 +277,45 @@ int main() {
         ImGui::End();
 
     
-        ImGui::Begin("Weight Input");
+        ImGui::Begin("Weight Input", nullptr, ImGuiWindowFlags_HorizontalScrollbar);
         if (selectedArticleIndex == -1) {
             ImGui::Text("Select an article from Evidence Feed");
         } else {
             ImGui::TextWrapped("%s", articles[selectedArticleIndex].title.c_str());
             ImGui::Separator();
+
+            // LLM suggestion display
+            {
+                lock_guard<mutex> llmLock(llmMutex);
+                if (llmPending && llmSuggestion.forArticle != selectedArticleIndex) {
+                    // pending for a different article, ignore
+                } else if (llmPending) {
+                    ImGui::TextDisabled("AI: analyzing...");
+                    ImGui::Separator();
+                } else if (llmSuggestion.ready && llmSuggestion.forArticle == selectedArticleIndex) {
+                    if (ImGui::Button("Accept AI Weights")) {
+                        for (int i = 0; i < (int)llmSuggestion.weightIndices.size() && i < (int)currentWeightIndices.size(); i++)
+                            currentWeightIndices[i] = llmSuggestion.weightIndices[i];
+                    }
+                    ImGui::SameLine();
+                    ImGui::TextDisabled("AI pre-scored (review before submitting)");
+                    for (int i = 0; i < (int)allHypotheses.size(); i++) {
+                        if (i < (int)llmSuggestion.weightIndices.size()) {
+                            const char* justif = i < (int)llmSuggestion.justifications.size()
+                                ? llmSuggestion.justifications[i].c_str() : "";
+                            ImGui::TextDisabled("  H%d %s: %s — %s", i + 1,
+                                allHypotheses[i].name.c_str(),
+                                weightNames[llmSuggestion.weightIndices[i]],
+                                justif);
+                        }
+                    }
+                    ImGui::Separator();
+                } else if (llmSuggestion.failed && llmSuggestion.forArticle == selectedArticleIndex) {
+                    ImGui::TextDisabled("AI error: %s", llmSuggestion.errorMsg.c_str());
+                    ImGui::Separator();
+                }
+            }
+
             for (int i = 0; i < (int)allHypotheses.size(); i++) {
                 ImGui::Text("%s", allHypotheses[i].name.c_str());
                 ImGui::SameLine();
@@ -201,7 +346,7 @@ int main() {
         ImGui::End();
 
         
-        ImGui::Begin("ACH Matrix");
+        ImGui::Begin("ACH Matrix", nullptr, ImGuiWindowFlags_HorizontalScrollbar);
         if (allevidence.empty()) {
             ImGui::Text("No evidence submitted yet");
         } else {
@@ -237,7 +382,7 @@ int main() {
         ImGui::End();
 
         
-        ImGui::Begin("Bayesian Output");
+        ImGui::Begin("Bayesian Output", nullptr, ImGuiWindowFlags_HorizontalScrollbar);
         if (allevidence.empty()) {
             ImGui::Text("No evidence submitted yet");
         } else {
@@ -291,34 +436,38 @@ int main() {
                     posteriorvalue(tempHyp, e.Weight, probB);
                     updatePriors(tempHyp);
                 }
-                vector<Hypotheses> sensitivityPosteriors = tempHyp;
                 vector<double> evDeltas;
                 for (size_t i = 0; i < tempHyp.size(); i++) {
-                    double delta = baselinePosteriors[i].posterior - sensitivityPosteriors[i].posterior;
+                    double delta = baselinePosteriors[i].posterior - tempHyp[i].posterior;
                     evDeltas.push_back(delta);
                 }
                 sensitivityDeltas.push_back(evDeltas);
                 ev.Weight = savedWeights;
             }
-for (int e=0; e <allevidence.size(); e++) {
-    ImGui::Text("E%d: %s", e + 1, allevidence[e].description.substr(0, 30).c_str());
-    for (int h = 0; h < (int)allHypotheses.size(); h++) {
-        ImGui::Text("  %s: %+.3f", allHypotheses[h].name.c_str(), sensitivityDeltas[e][h]);
-    }
-    ImGui::Spacing();
-}
+            ImGui::BeginChild("##sensitivity_scroll", ImVec2(0, 160), false,
+                ImGuiWindowFlags_HorizontalScrollbar);
+            for (int e = 0; e < (int)allevidence.size(); e++) {
+                ImGui::Text("E%d: %s", e + 1, allevidence[e].description.substr(0, 30).c_str());
+                for (int h = 0; h < (int)allHypotheses.size(); h++) {
+                    ImGui::Text("  H%d %s: %+.3f", h + 1, allHypotheses[h].name.c_str(), sensitivityDeltas[e][h]);
+                }
+                ImGui::Spacing();
+            }
+            ImGui::EndChild();
             ImGui::Separator();
             ImGui::Text("Posterior Probabilities");
             vector<double> posteriorValues;
-            vector<const char*> hypothesisLabels;
-            for (const auto& h : runHypotheses) {
-                posteriorValues.push_back(h.posterior * 100.0);
-                hypothesisLabels.push_back(h.name.c_str());
+            vector<const char*> shortLabels;
+            vector<string> shortLabelStrs;
+            for (int i = 0; i < (int)runHypotheses.size(); i++) {
+                posteriorValues.push_back(runHypotheses[i].posterior * 100.0);
+                shortLabelStrs.push_back("H" + to_string(i + 1));
             }
+            for (const auto& s : shortLabelStrs) shortLabels.push_back(s.c_str());
             if (ImPlot::BeginPlot("##posteriors", ImVec2(-1, 200))) {
                 ImPlot::SetupAxes(nullptr, "Probability %");
                 ImPlot::SetupAxisLimits(ImAxis_Y1, 0, 100, ImGuiCond_Always);
-                ImPlot::SetupAxisTicks(ImAxis_X1, 0, (int)posteriorValues.size() - 1, (int)posteriorValues.size(), hypothesisLabels.data());
+                ImPlot::SetupAxisTicks(ImAxis_X1, 0, (int)posteriorValues.size() - 1, (int)posteriorValues.size(), shortLabels.data());
                 ImPlot::PlotBars("##bars", posteriorValues.data(), (int)posteriorValues.size(), 0.6);
                 ImPlot::EndPlot();
             }
