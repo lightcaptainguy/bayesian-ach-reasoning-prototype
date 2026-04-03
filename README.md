@@ -14,7 +14,7 @@ The system models an analyst's reasoning process:
 4. Analyst reviews LLM suggestions, accepts or overrides weights per hypothesis
 5. Engine runs sequential Bayesian updates across all submitted evidence
 6. Outputs a structured ACH matrix, posterior probabilities, 
-   friction scores, and sensitivity analysis, and an posterior probabilities bar graph.
+   friction scores, and sensitivity analysis, and a posterior probabilities bar graph.
 
 
 ## Methodology
